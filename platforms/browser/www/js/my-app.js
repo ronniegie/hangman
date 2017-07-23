@@ -21,12 +21,13 @@ var collection_of_words = [
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
-    /*on load*/
+
+    /*load new word*/
     var word = collection_of_words[Math.floor(Math.random()*collection_of_words.length)];
     var get_word = getWord(word);
     $('.text-container').html(get_word);
-
-     /*keyboard event*/
+    
+    /*keyboard event*/
     $$('.keyboard a').on('click', function(){
         var elem = this;
         inputLetter(elem);
@@ -35,7 +36,24 @@ $$(document).on('deviceready', function() {
 });
 
 
+
 /***********************************custom function***********************************/
+
+/*reset app*/
+function reset(){
+    /*reset image*/
+    $('.banner-img').attr("src","img/life/life_0.gif");
+    $('.banner-img').attr('alt', 0);
+
+    /*load new word*/
+    var word = collection_of_words[Math.floor(Math.random()*collection_of_words.length)];
+    var get_word = getWord(word);
+    $('.text-container').html(get_word);
+    
+
+
+}
+
 
 /*get word and display*/
 function getWord(word){
@@ -71,6 +89,12 @@ function letterChecker(input_elem){
 
         var current_image_index = $('.banner-img').attr('alt');
         var display_image_index = parseInt(current_image_index) + 1;
+        var limit = 6;
+
+        if(display_image_index >= limit){
+            myApp.alert('<img class="result" src="img/life/loser.gif" />', 'Loser!', reset());
+            return false;
+        }
 
         $('.banner-img').attr("src","img/life/life_"+display_image_index+".gif");
         $('.banner-img').attr('alt', display_image_index);
@@ -104,9 +128,9 @@ function wordChecker(index,input_elem){
         var user_input_word = user_input_word.join("");
 
         if(correct_word === user_input_word){
-            myApp.alert('You are correct', 'Custom Title!');
+            myApp.alert('<img class="result" src="img/life/winner.gif" />', 'Winner!', reset());
         }else{
-            myApp.alert('You are wrong', 'Custom Title!');
+            myApp.alert('<img class="result" src="img/life/loser.gif" />', 'Loser!', reset());
         }
 
     }
