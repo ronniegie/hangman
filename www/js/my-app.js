@@ -12,20 +12,43 @@ var mainView = myApp.addView('.view-main', {
 });
 
 var collection_of_words = [
-    ['T','A','B','L','E'],
-    ['C','H','A','I','R'],
-    ['D','O','O','R'],
-    ['W','I','N','D','O','W']
+
+    {
+        "word": [ 'T','A','B','L','E'],
+        "hint": "the star of the feast"
+    },
+
+    {
+        "word" : ['C','H','A','I','R'],
+        "hint": "sit down and talk for a while"
+    },
+
+    {
+        "word" : ['D','O','O','R'],
+        "hint" : "wherever you may lead"
+    },
+
+    {
+        "word" : ['W','I','N','D','O','W'],
+        "hint" : "open your eyes and see"
+    },
+
+    {
+        "word" : ['C','L','O','C', 'K'],
+        "hint" : "tool for a unstoppable force"
+    }
 ];
+
 
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
 
     /*load new word*/
-    var word = collection_of_words[Math.floor(Math.random()*collection_of_words.length)];
-    var get_word = getWord(word);
+    var item = collection_of_words[Math.floor(Math.random()*collection_of_words.length)];
+    var get_word = getWord(item.word);
     $('.text-container').html(get_word);
+    $('.hint-container').html("Hint: "+item.hint);
     
     /*keyboard event*/
     $$('.keyboard a').on('click', function(){
@@ -46,12 +69,11 @@ function reset(){
     $('.banner-img').attr('alt', 0);
 
     /*load new word*/
-    var word = collection_of_words[Math.floor(Math.random()*collection_of_words.length)];
-    var get_word = getWord(word);
+    var item = collection_of_words[Math.floor(Math.random()*collection_of_words.length)];
+    var get_word = getWord(item.word);
     $('.text-container').html(get_word);
+    $('.hint-container').html("Hint: "+item.hint);
     
-
-
 }
 
 
